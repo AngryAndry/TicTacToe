@@ -26,6 +26,12 @@ namespace TicTacToe
         /// True игра завершена 
         /// </summary>
         private bool mGameEnded;
+
+        /// <summary>
+        /// Счетчики игроков 
+        /// </summary>
+        private int Player1Counter;
+        private int Player2Counter;
         #endregion
 
         #region Contructor
@@ -106,9 +112,24 @@ namespace TicTacToe
             CheckForWinner();
         }
         /// <summary>
-        /// проверяет победителя по линии из трех 
+        /// Счетчик игроков
         /// </summary>
-        private void CheckForWinner()
+        private void PlayerCounter(MarkType temp)
+            
+        {            if(temp==MarkType.Cross)
+                { Player1Counter++;
+                    Player1.Content = $"Player X: {Player1Counter}";
+                       }
+                else
+                {
+                    Player2Counter++;
+                    Player2.Content = $"Player O: {Player2Counter}";
+                }
+}
+/// <summary>
+/// проверяет победителя по линии из трех 
+/// </summary>
+private void CheckForWinner()
         {
             //Проверка горизонта
             //Строка 0 
@@ -118,6 +139,9 @@ namespace TicTacToe
                 mGameEnded = true;
                 //Окрашиваем выйграшные в зеленый
                 Button0_0.Background = Button1_0.Background = Button2_0.Background = Brushes.Green;
+                //Увеличиваем счетчик игрока
+                PlayerCounter(mResults[0]);
+                return;
             } 
             //Строка 1 
             if (mResults[3] != MarkType.Free && (mResults[3] & mResults[4] & mResults[5]) == mResults[3])
@@ -126,14 +150,21 @@ namespace TicTacToe
                 mGameEnded = true;
                 //Окрашиваем выйграшные в зеленый
                 Button0_1.Background = Button1_1.Background = Button2_1.Background = Brushes.Green;
+                //Увеличиваем счетчик игрока
+                PlayerCounter(mResults[3]);
+                return;
             }          
             //Строка 2
             if (mResults[6] != MarkType.Free && (mResults[6] & mResults[7] & mResults[8]) == mResults[6])
             {
+
                 //конец игры
                 mGameEnded = true;
                 //Окрашиваем выйграшные в зеленый
                 Button0_2.Background = Button1_2.Background = Button2_2.Background = Brushes.Green;
+                //Увеличиваем счетчик игрока
+                PlayerCounter(mResults[6]);
+                return;
             }            
             //Проверка вертикали
             //Столбец 0 
@@ -143,6 +174,9 @@ namespace TicTacToe
                 mGameEnded = true;
                 //Окрашиваем выйграшные в зеленый
                 Button0_0.Background = Button0_1.Background = Button0_2.Background = Brushes.Green;
+                //Увеличиваем счетчик игрока
+                PlayerCounter(mResults[0]);
+                return;
             }
             //Столбец 1
             if (mResults[1] != MarkType.Free && (mResults[1] & mResults[4] & mResults[7]) == mResults[1])
@@ -151,6 +185,9 @@ namespace TicTacToe
                 mGameEnded = true;
                 //Окрашиваем выйграшные в зеленый
                 Button1_0.Background = Button1_1.Background = Button1_2.Background = Brushes.Green;
+                //Увеличиваем счетчик игрока
+                PlayerCounter(mResults[1]);
+                return;
             }
             //Столбец 2 
             if (mResults[2] != MarkType.Free && (mResults[2] & mResults[5] & mResults[8]) == mResults[2])
@@ -159,6 +196,9 @@ namespace TicTacToe
                 mGameEnded = true;
                 //Окрашиваем выйграшные в зеленый
                 Button2_0.Background = Button2_1.Background = Button2_2.Background = Brushes.Green;
+                //Увеличиваем счетчик игрока
+                PlayerCounter(mResults[2]);
+                return;
             }  
             //Проверка диагоналей
             //Диагональ 1
@@ -168,6 +208,9 @@ namespace TicTacToe
                 mGameEnded = true;
                 //Окрашиваем выйграшные в зеленый
                 Button0_0.Background = Button1_1.Background = Button2_2.Background = Brushes.Green;
+                //Увеличиваем счетчик игрока
+                PlayerCounter(mResults[0]);
+                return;
             }          
             //Диагональ 2
             if (mResults[2] != MarkType.Free && (mResults[2] & mResults[4] & mResults[6]) == mResults[2])
@@ -176,6 +219,9 @@ namespace TicTacToe
                 mGameEnded = true;
                 //Окрашиваем выйграшные в зеленый
                 Button2_0.Background = Button1_1.Background = Button0_2.Background = Brushes.Green;
+                //Увеличиваем счетчик игрока
+                PlayerCounter(mResults[2]);
+                return;
             }          
            
             //проверка на отсутствие победителя и полную доску
